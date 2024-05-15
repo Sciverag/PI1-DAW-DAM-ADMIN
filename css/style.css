@@ -7,6 +7,7 @@ body, html {
   color: #273c75;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   min-height: 100vh;
 }
 
@@ -19,6 +20,34 @@ header {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  padding: 6px;
+  min-width: 70vw;
+  max-width: 70vw;
+ margin: auto 15vw;
+}
+
+footer {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  padding: 6px;
+ /* min-width: 100vw;*/
+ max-width: 70vw;
+ margin: auto 15vw;
+}
+
+footer p{
+  margin-left: 1%;
+  color: gray;
+}
+
+.logocircular {
+  border-radius: 100%;
 }
 
 /* Estilo del contenedor principal para login, admin y contenido/usuarios */
@@ -29,6 +58,37 @@ header {
   background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   border-radius: 8px;
+}
+
+#contenido-usuario{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 40%;
+  max-width: 100px;
+}
+
+#contenido-logo{
+  display: flex;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  padding-left: 5%;
+  align-items: center;
+}
+
+#contenido-logo h1{
+  margin-left: 5%;
+}
+
+#menu {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  display: flex;
+  padding: 10px;
+  max-width: 70vw;
+   margin: auto 15vw;
 }
 
 .modifier-container {
@@ -74,8 +134,28 @@ input[type='text'], input[type='password'], input[type='number'], input[type='em
   transition: background-color 0.3s ease;
 }
 
-.button:hover, button:hover, a.button:hover {
+.buttonReturn {
+  flex: 1;
+  min-width: 150px;
+  margin: 0 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  text-align: center;
+  background-color: #f3f3f3;
+  color: #273c75;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover, button:hover, a.button:hover, .buttonReturn:hover {
   background-color: #192a56;
+  color: #ffffff;
 }
 
 .buttonCrud {
