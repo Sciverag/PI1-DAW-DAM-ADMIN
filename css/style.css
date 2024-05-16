@@ -50,6 +50,13 @@ footer p{
   border-radius: 100%;
 }
 
+#spinner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
 /* Estilo del contenedor principal para login, admin y contenido/usuarios */
 .login-container, .admin-container {
   max-width: 960px;
@@ -88,16 +95,17 @@ footer p{
   display: flex;
   padding: 10px;
   max-width: 70vw;
-   margin: auto 15vw;
+  margin: auto 15vw;
 }
 
 .modifier-container {
-  margin: auto;
+  margin: 5% auto;
   padding: 2rem;
   max-width: 90vw;
   background-color: #ffffff;
   box-shadow: 0 8px 16px rgba(0,0,0,0.15);
   border-radius: 8px;
+  min-width: 70vw;
 }
 
 /* Formularios generales */
@@ -283,7 +291,7 @@ th, td {
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .buttons-container {
@@ -291,6 +299,51 @@ th, td {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+/* Estilos carta usuario */
+
+.user-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 50px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.user-block,
+.user-block-back {
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+  box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+}
+
+.img-container-user img{
+  width: 200px;
+  height: auto;
+}
+
+.user-block p {
+  margin: 5px;
+}
+
+.user-block,
+.user-block-back {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.user-block-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0%;
 }
 
 /* Media Queries para Responsividad */
@@ -312,6 +365,17 @@ th, td {
     margin-top: 20px;
   }
 
+  .user-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
   .name {
     text-transform: capitalize;
     font-weight: bold;
@@ -321,6 +385,11 @@ th, td {
   .img-container img{
     width: 100%;
     height: 300px;
+  }
+
+  .img-container-user img{
+    width: 150px;
+    height: auto;
   }
 
   .button, button, a.button {
@@ -352,6 +421,17 @@ th, td {
     margin-top: 20px;
   }
 
+  .user-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
   .name {
     text-transform: capitalize;
     font-weight: bold;
@@ -361,5 +441,10 @@ th, td {
   .img-container img{
     width: 100%;
     height: 200px;
+  }
+
+  .img-container-user img{
+    width: 100px;
+    height: auto;
   }
 }
