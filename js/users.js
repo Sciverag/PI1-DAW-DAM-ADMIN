@@ -1,6 +1,6 @@
 const userContainer = document.querySelector(".user-container");
-//const ipServer = "http://172.30.198.206:8080";
-const ipServer = "http://127.0.0.1:8080"
+const ipServer = "http://172.30.198.206:8080";
+//const ipServer = "http://127.0.0.1:8080"
 const spinner = document.querySelector("#spinner");
 
 function fetchUsuario() {
@@ -85,6 +85,7 @@ function fetchUsuario() {
   
       const botonModificar = document.createElement("a");
       botonModificar.classList.add("button");
+      botonModificar.addEventListener("click",function() {verUsuario(nombreUsuario)},false);
       botonModificar.textContent = "Modificar";
 
 
@@ -96,6 +97,7 @@ function fetchUsuario() {
 
       const botonEliminar = document.createElement("a");
       botonEliminar.classList.add("button");
+      botonEliminar.addEventListener("click",function() {eliminarUsuario(nombreUsuario)},false);
       botonEliminar.textContent = "Eliminar";
 
       buttonContainerEliminar.appendChild(botonEliminar);
@@ -106,6 +108,18 @@ function fetchUsuario() {
       
   
     return buttonsContainer;
+  }
+
+  function verUsuario(nombreUser){
+    window.location.href = 'modificarCliente.html?nombreUser='+encodeURIComponent(nombreUser);
+  }
+
+  function eliminarUsuario(nombreUser){
+    fetch(ipServer+"/usuario/delete/"+nombreUser ,{
+      method: 'DELETE',
+    }).catch(error => {
+      spinner.style.display = "none";
+    })
   }
 
   fetchUsuarios()

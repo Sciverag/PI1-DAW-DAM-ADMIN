@@ -9,6 +9,7 @@ body, html {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 h1, h2 {
@@ -52,9 +53,6 @@ footer p{
 
 #spinner {
   display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
 }
 
 /* Estilo del contenedor principal para login, admin y contenido/usuarios */
@@ -115,7 +113,7 @@ form {
   padding: 2.5rem;
 }
 
-input[type='text'], input[type='password'], input[type='number'], input[type='email'] {
+input[type='text'], input[type='password'], input[type='number'], input[type='email'], input[type='date'], input[type='url'] {
   padding: 12px;
   margin-bottom: 20px;
   border: 2px solid #bdc3c7;
@@ -320,6 +318,11 @@ th, td {
   padding: 10px;
   background-color: white;
   box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+}
+
+.img-container-user{
+  display: flex;
+  justify-content: center;
 }
 
 .img-container-user img{
