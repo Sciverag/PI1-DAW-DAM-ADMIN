@@ -9,7 +9,7 @@
 <body>
 <div class="login-container">
   <h1 class="title">MiraVereda</h1>
-  <form id="loginForm" action="admin.html" method="POST">
+  <form id="loginForm">
     <div class="form-group">
       <label for="username">Usuario:</label>
       <input type="text" id="username" name="username" required>
@@ -21,6 +21,7 @@
     <div class="form-group">
       <button type="submit">Ingresar</button>
     </div>
+    <p id="error-message" style="color: red; display: none;">Credenciales incorrectas</p>
   </form>
 </div>
 <script src="js/app.js"></script>
