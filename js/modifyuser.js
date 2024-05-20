@@ -1,5 +1,5 @@
 const clientImageView = document.querySelector("#iconocliente");
-const clientUser = document.querySelector("#clientUser");
+const nombreUser = document.querySelector("#nombreUser");
 const clientName = document.querySelector("#clientName");
 const clientLastName = document.querySelector("#clientLastName");
 const clientEmail = document.querySelector("#clientEmail");
@@ -24,26 +24,31 @@ function colocarInformacion(){
     fetch(ipServer+"/usuario/"+nombreUsuario)
       .then((res) => res.json())
       .then((data) => {
-        clientUser.value = data.nombreUsuario;
-        clientName.value = data.nombre;
-        clientLastName.value = data.apellido;
-        clientEmail.value = data.email;
-        clientPassword.value = data.contrasenya;
-        clientDomicilio.value = data.domicilio;
-        clientFechaNac.value = data.fechaNacimiento;
-        clientNumTarjeta.value = data.num_tarjeta;
-        clientIcon.value = data.url_imagen;
-        clientImageView.src = data.url_imagen;
-        clientCodPostal.value = data.cp;
+        informacionUsuario(data);
       })
       .catch(error => {
         
       })
 }
 
+function informacionUsuario(usuario){
+    nombreUser.value = usuario.nombreUsuario;
+    clientName.value = usuario.nombre;
+    clientLastName.value = usuario.apellido;
+    clientEmail.value = usuario.email;
+    clientPassword.value = usuario.contrasenya;
+    clientDomicilio.value = usuario.domicilio;
+    clientFechaNac.value = usuario.fechaNacimiento;
+    clientNumTarjeta.value = usuario.num_tarjeta;
+    console.log(usuario.url_imagen);
+    clientIcon.value = usuario.url_imagen;
+    clientImageView.src = usuario.url_imagen;
+    clientCodPostal.value = usuario.cp;
+}
+
 function modificarCliente(){
-    const Usuario = new Usuario();
-    Usuario.append('nombreUsuario',clientUser.value);
+    const Usuario = new FormData();
+    Usuario.append('nombreUsuario',nombreUser.value);
     Usuario.append('nombre',clientName.value);
     Usuario.append('apellido',clientLastName.value);
     Usuario.append('email',clientEmail.value);
@@ -51,16 +56,20 @@ function modificarCliente(){
     Usuario.append('domicilio',clientDomicilio.value);
     Usuario.append('fechaNacimiento',clientFechaNac.value);
     Usuario.append('num_tarjeta',clientNumTarjeta.value);
-    Usuario.append('changedTs',null);
     Usuario.append('url_imagen',clientIcon.value);
     Usuario.append('cp',clientCodPostal.value);
 
     fetch(ipServer+"/usuario/update", {
+        
         method: 'PUT',
-        body: Usuario
+        mode: 'cors',
+        body: JSON.stringify(Usuario),
+        headers: {
+            "Content-Type": "application/json",
+        },
     }).then(response => response.json())
     .catch(error => {
-
+        console.error(error);
     })
     
 }

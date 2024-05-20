@@ -1,6 +1,6 @@
 const userContainer = document.querySelector(".user-container");
-const ipServer = "http://172.30.198.206:8080";
-//const ipServer = "http://127.0.0.1:8080"
+//const ipServer = "http://172.30.198.206:8080";
+const ipServer = "http://127.0.0.1:8080"
 const spinner = document.querySelector("#spinner");
 
 function fetchUsuario() {
