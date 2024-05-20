@@ -47,6 +47,27 @@ function addClient() {
     .then(json => console.log(json));
   console.log('Añadiendo cliente: ',usuario, nombre, apellido , contrasenya , email);
 }
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorMessage = document.getElementById('error-message');
+
+  const validUsers = [
+    { username: 'root', password: 'root' },
+    { username: 'pepanav', password: '1234' },
+    { username: 'lunagarc', password: '1234' }
+  ];
+
+  const isValidUser = validUsers.some(user => user.username === username && user.password === password);
+
+  if (isValidUser) {
+    window.location.href = 'admin.html';
+  } else {
+    errorMessage.style.display = 'block';
+  }
+});
 
 
 
