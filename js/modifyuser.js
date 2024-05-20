@@ -10,8 +10,8 @@ const clientNumTarjeta = document.querySelector("#clientNumTarjeta");
 const clientIcon = document.querySelector("#clientIcon");
 const clientCodPostal = document.querySelector("#clientCodPostal");
 
-//const ipServer = "http://172.30.198.206:8080";
-const ipServer = "http://127.0.0.1:8080";
+const ipServer = "http://172.30.198.206:8080";
+//const ipServer = "http://127.0.0.1:8080";
 const nombreUsuario = obtenerParametro('nombreUser');
 colocarInformacion();
 
