@@ -1,36 +1,33 @@
-const userContainer = document.querySelector(".user-container");
+const contentContainer = document.querySelector(".content-container");
 const ipServer = "http://172.30.198.206:8080";
 //const ipServer = "http://127.0.0.1:8080"
 const spinner = document.querySelector("#spinner");
 
-function fetchUsuario() {
+function fetchContenido() {
  
-    fetch(ipServer+"/usuario/")
+    fetch(ipServer+"/contenido/")
       .then((res) => res.json())
       .then((data) => {
         for(let i=0;i<=data.length;i++){
-            if(data[i].nombreUsuario=="root" || data[i].nombreUsuario=="pepanav" || data[i].nombreUsuario=="lunagarc"){
-                console.log("admin");
-            }else{
-                crearUsuario(data[i]);
-            }
+            crearContenido(data[i]);
         }
         spinner.style.display = "none";
       })
       .catch(error => {
         spinner.style.display = "none";
+        console.error(error);
       })
     
   }
   
-  function fetchUsuarios() {
+  function fetchContenidos() {
     
     spinner.style.display = "block";
-    fetchUsuario();
+    fetchContenido();
     
   }
 
-  function crearUsuario(usuario) {
+  function crearContenido(contenido) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
   
@@ -39,45 +36,43 @@ function fetchUsuario() {
   
     flipCard.appendChild(cardContainer);
   
-
     const card = document.createElement("div");
-    card.classList.add("user-block");
+    card.classList.add("content-block");
   
     const iconContainer = document.createElement("div");
-    iconContainer.classList.add("img-container-user");
+    iconContainer.classList.add("img-container");
   
     const icon = document.createElement("img");
-    icon.classList.add("logocircular");
-    icon.src = usuario.url_imagen;
+    icon.src = contenido.url_image;
   
     iconContainer.appendChild(icon);
 
   
     const name = document.createElement("p");
     name.classList.add("name");
-    name.textContent = usuario.nombreUsuario;
+    name.textContent = contenido.titulo;
   
     card.appendChild(iconContainer);
     card.appendChild(name);
 
   
     const cardBack = document.createElement("div");
-    cardBack.classList.add("user-block-back");
+    cardBack.classList.add("content-block-back");
   
-    cardBack.appendChild(botonesUsuario(usuario));
+    cardBack.appendChild(botonesContenido(contenido));
   
     cardContainer.appendChild(card);
     cardContainer.appendChild(cardBack);
-    userContainer.appendChild(flipCard);
+    contentContainer.appendChild(flipCard);
 
   }
 
-  function botonesUsuario(usuario) {
+  function botonesContenido(contenido) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("buttons-container");
 
 
-      const nombreUsuario = usuario.nombreUsuario;
+      const idContenido = contenido.id;
   
       const buttonContainer = document.createElement("button-container");
       buttonContainer.classList.add("button-container");
@@ -85,7 +80,7 @@ function fetchUsuario() {
   
       const botonModificar = document.createElement("a");
       botonModificar.classList.add("button");
-      botonModificar.addEventListener("click",function() {verUsuario(nombreUsuario)},false);
+      botonModificar.addEventListener("click",function() {verContenido(idContenido)},false);
       botonModificar.textContent = "Modificar";
 
 
@@ -97,7 +92,7 @@ function fetchUsuario() {
 
       const botonEliminar = document.createElement("a");
       botonEliminar.classList.add("button");
-      botonEliminar.addEventListener("click",function() {eliminarUsuario(nombreUsuario)},false);
+      botonEliminar.addEventListener("click",function() {eliminarContenido(idContenido)},false);
       botonEliminar.textContent = "Eliminar";
 
       buttonContainerEliminar.appendChild(botonEliminar);
@@ -110,17 +105,16 @@ function fetchUsuario() {
     return buttonsContainer;
   }
 
-  function verUsuario(nombreUser){
-    window.location.href = 'modificarCliente.html?nombreUser='+encodeURIComponent(nombreUser);
+  function verContenido(nombreUser){
+    window.location.href = 'modificarContenido.html?idContenido='+encodeURIComponent(idContenido);
   }
 
-  function eliminarUsuario(nombreUser){
-    fetch(ipServer+"/usuario/delete/"+nombreUser ,{
+  function eliminarContenido(idContenido){
+    fetch(ipServer+"/contenido/delete/"+idContenido ,{
       method: 'DELETE',
     }).catch(error => {
       spinner.style.display = "none";
-      console.error(error);
     })
   }
 
-  fetchUsuarios()
+  fetchContenidos()

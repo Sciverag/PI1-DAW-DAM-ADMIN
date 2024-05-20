@@ -41,8 +41,22 @@ function addClient() {
   const contrasenya = document.getElementById('clientPassword').value;
   const apellido = document.getElementById('clientLastName').value;
   const email = document.getElementById('clientEmail').value;
-  const usuario = document.getElementById('clientEmail').value;
-  fetch(ipServer + "/usuario/")
+  const usuario = document.getElementById('clientUser').value;
+
+  Usuario = new FormData();
+  Usuario.append('nombreUsuario',usuario);
+  Usuario.append('nombre',nombre);
+  Usuario.append('apellido',apellido);
+  Usuario.append('contrasenya',contrasenya);
+  Usuario.append('email',email);
+
+  fetch(ipServer + "/usuario/",{
+    method: 'POST',
+    body: JSON.stringify(Usuario),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
     .then(response => response.json())
     .then(json => console.log(json));
   console.log('Añadiendo cliente: ',usuario, nombre, apellido , contrasenya , email);
