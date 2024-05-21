@@ -159,7 +159,7 @@ function modificarPelicula(){
         "titulo": tipoContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
-        "puntMedia": null,
+        "puntMedia": puntuacionContenido.value,
         "fechaEstreno": estrenoContenido.value,
         "duracion_minutos": duracionContenido.value,
         "director": directorContenido.value,
@@ -195,7 +195,7 @@ function modificarCorto(){
         "titulo": tipoContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
-        "puntMedia": null,
+        "puntMedia": puntuacionContenido.value,
         "fechaEstreno": estrenoContenido.value,
         "duracion_minutos": duracionContenido.value,
         "director": directorContenido.value,
@@ -230,7 +230,7 @@ function modificarCapitulo(){
         "titulo": tipoContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
-        "puntMedia": null,
+        "puntMedia": puntuacionContenido.value,
         "fechaEstreno": estrenoContenido.value,
         "duracion_minutos": duracionContenido.value,
         "director": directorContenido.value,
@@ -257,6 +257,34 @@ function modificarCapitulo(){
     })
     .catch(error => {
         mensajeResultado.innerHTML = "Ha ocurrido un error al actualizar el capitulo";
+        console.error(error);
+    })
+}
+
+function modificarSerie(){
+    const Serie = {
+        "id": idContenido,
+        "disponible_hasta": peliculaDispo.value,
+        "titulo": tituloContenido.value,
+        "descripcion": desContenido.value,
+        "url_image": imagenContenido.value
+    }
+
+    fetch(ipServer+"/contenido/serie/update", {
+        method: 'PUT',
+        mode: 'cors',
+        body: JSON.stringify(Capitulo),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(response => response.json())
+    .then((data) => {
+        if(data == 1){
+            mensajeResultado.innerHTML = "La Serie se a actualizado correctamente";
+        }
+    })
+    .catch(error => {
+        mensajeResultado.innerHTML = "Ha ocurrido un error al actualizar la serie";
         console.error(error);
     })
 }
