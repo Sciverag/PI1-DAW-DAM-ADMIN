@@ -1,4 +1,6 @@
 const ipServer = "http://172.30.198.206:8080";
+//const ipServer = "http://127.0.0.1:8080"
+
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;
 
@@ -37,21 +39,23 @@ function showAddClientForm() {
 }
 
 function addClient() {
-  const nombre = document.getElementById('clientName').value;
-  const contrasenya = document.getElementById('clientPassword').value;
-  const apellido = document.getElementById('clientLastName').value;
-  const email = document.getElementById('clientEmail').value;
-  const usuario = document.getElementById('clientUser').value;
+  const nombre = document.getElementById('clientName');
+  const contrasenya = document.getElementById('clientPassword');
+  const apellido = document.getElementById('clientLastName');
+  const email = document.getElementById('clientEmail');
+  const usuario = document.getElementById('clientUser');
 
-  Usuario = new FormData();
-  Usuario.append('nombreUsuario',usuario);
-  Usuario.append('nombre',nombre);
-  Usuario.append('apellido',apellido);
-  Usuario.append('contrasenya',contrasenya);
-  Usuario.append('email',email);
-
+  const Usuario = {
+    'nombreUsuario': usuario.value,
+    'nombre': nombre.value,
+    'apellido': apellido.value,
+    'contrasenya': contrasenya.value,
+    'email': email.value
+  } 
+  
   fetch(ipServer + "/usuario/",{
     method: 'POST',
+    mode: 'cors',
     body: JSON.stringify(Usuario),
     headers: {
       "Content-Type": "application/json",
@@ -62,6 +66,7 @@ function addClient() {
     .catch(error => console.error(error));
   console.log('Añadiendo cliente: ',usuario, nombre, apellido , contrasenya , email);
 }
+
 document.getElementById('loginForm').addEventListener('submit', function(event) {
   event.preventDefault();
   

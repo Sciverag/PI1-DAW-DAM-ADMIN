@@ -35,6 +35,11 @@
     <a href="admin.html" class="buttonReturn">Volver al Inicio</a>
   </nav>
   <div class="modifier-container">
+    <div id="flitro">
+      <form id="formFlitro" onsubmit="flitrarUsuarios(); return false">
+      <input type="text" id="userName" name="userName" placeholder="Buscar Usuario">
+      <button type="submit">Buscar</button>
+    </div>
     <h2>LISTA USUARIOS</h2>
     <div class="user-container">
       <div id="spinner" class="spinner-border text-light" role="status">

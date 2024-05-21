@@ -1,6 +1,7 @@
 const userContainer = document.querySelector(".user-container");
-//const ipServer = "http://172.30.198.206:8080";
-const ipServer = "http://127.0.0.1:8080"
+const userName = document.querySelector("#userName");
+const ipServer = "http://172.30.198.206:8080";
+//const ipServer = "http://127.0.0.1:8080"
 const spinner = document.querySelector("#spinner");
 
 function fetchUsuario() {
@@ -121,6 +122,35 @@ function fetchUsuario() {
       spinner.style.display = "none";
       console.error(error);
     })
+
+    actualizarListado();
+    fetchUsuarios();
+  }
+
+  function flitrarUsuarios(){
+    const nombre = userName.value;
+    actualizarListado();
+    fetch(ipServer+"/usuario/")
+      .then((res) => res.json())
+      .then((data) => {
+        for(let i=0;i<=data.length;i++){
+            if(data[i].nombreUsuario=="root" || data[i].nombreUsuario=="pepanav" || data[i].nombreUsuario=="lunagarc"){
+                console.log("admin");
+            }else{
+              if(data[i].nombreUsuario.toLowerCase().includes(nombre.toLowerCase())){
+                crearUsuario(data[i]);
+              }
+            }
+        }
+        spinner.style.display = "none";
+      })
+      .catch(error => {
+        spinner.style.display = "none";
+      })
+  }
+
+  function actualizarListado(){
+    userContainer.innerHTML = '<div id="spinner" class="spinner-border text-light" role="status"><span class="visually-hidden">Cargando...</span></div>'
   }
 
   fetchUsuarios()

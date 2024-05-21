@@ -9,9 +9,10 @@ const clientFechaNac = document.querySelector("#clientFechNac");
 const clientNumTarjeta = document.querySelector("#clientNumTarjeta");
 const clientIcon = document.querySelector("#clientIcon");
 const clientCodPostal = document.querySelector("#clientCodPostal");
+const mensajeResultado = document.querySelector("#mensaje_resultado");
 
-//const ipServer = "http://172.30.198.206:8080";
-const ipServer = "http://127.0.0.1:8080";
+const ipServer = "http://172.30.198.206:8080";
+//const ipServer = "http://127.0.0.1:8080";
 const nombreUsuario = obtenerParametro('nombreUser');
 colocarInformacion();
 
@@ -70,9 +71,12 @@ function modificarCliente(){
         },
     }).then(response => response.json())
     .then((data) => {
-        console.log(data);
+        if(data == 1){
+            mensajeResultado.innerHTML = "El Usuario se a actualizado correctamente";
+        }
     })
     .catch(error => {
+        mensajeResultado.innerHTML = "Ha ocurrido un error alactualizar el usuario";
         console.error(error);
     })
     
