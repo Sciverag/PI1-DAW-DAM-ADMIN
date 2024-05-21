@@ -40,7 +40,7 @@ function fetchContenido(titulo) {
           for(let i=0;i<=data.length-1;i++){
             if(generoSeleccionado == "Todo"){
               if(data[i].titulo.toLowerCase().includes(titulo.toLowerCase())){
-                crearContenido(data[i]);
+                crearContenido(data[i],'serie');
               }
             }
               
@@ -62,7 +62,7 @@ function fetchContenido(titulo) {
     
   }
 
-  function crearContenido(contenido) {
+  function crearContenido(contenido,tipo) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
   
@@ -94,7 +94,7 @@ function fetchContenido(titulo) {
     const cardBack = document.createElement("div");
     cardBack.classList.add("content-block-back");
   
-    cardBack.appendChild(botonesContenido(contenido));
+    cardBack.appendChild(botonesContenido(contenido,tipo));
   
     cardContainer.appendChild(card);
     cardContainer.appendChild(cardBack);
@@ -102,7 +102,7 @@ function fetchContenido(titulo) {
 
   }
 
-  function botonesContenido(contenido) {
+  function botonesContenido(contenido,tipo) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("buttons-container");
 
@@ -115,7 +115,7 @@ function fetchContenido(titulo) {
   
       const botonModificar = document.createElement("a");
       botonModificar.classList.add("button");
-      botonModificar.addEventListener("click",function() {verContenido(idContenido)},false);
+      botonModificar.addEventListener("click",function() {verContenido(idContenido,tipo)},false);
       botonModificar.textContent = "Modificar";
 
 
@@ -127,7 +127,7 @@ function fetchContenido(titulo) {
 
       const botonEliminar = document.createElement("a");
       botonEliminar.classList.add("button");
-      botonEliminar.addEventListener("click",function() {eliminarContenido(idContenido)},false);
+      botonEliminar.addEventListener("click",function() {eliminarContenido(idContenido,tipo)},false);
       botonEliminar.textContent = "Eliminar";
 
       buttonContainerEliminar.appendChild(botonEliminar);
@@ -140,11 +140,11 @@ function fetchContenido(titulo) {
     return buttonsContainer;
   }
 
-  function verContenido(nombreUser){
-    window.location.href = 'modificarContenido.html?idContenido='+encodeURIComponent(idContenido);
+  function verContenido(idContenido,tipoContenido){
+    window.location.href = 'modificarContenido.html?idContenido='+encodeURIComponent(idContenido+'z'+tipoContenido);
   }
 
-  function eliminarContenido(idContenido){
+  function eliminarContenido(idContenido,tipo){
     fetch(ipServer+"/contenido/delete/"+idContenido ,{
       method: 'DELETE',
       mode: 'cors'
@@ -202,7 +202,7 @@ function fetchContenido(titulo) {
           for(let i=0;i<=data.length-1;i++){
             if(data[i].idGenero == generoSeleccionado || generoSeleccionado == "Todo"){
               if(data[i].titulo.toLowerCase().includes(titulo.toLowerCase())){
-                crearContenido(data[i]);
+                crearContenido(data[i],'pelicula');
               }
             }
           }
@@ -224,7 +224,7 @@ function fetchContenido(titulo) {
           for(let i=0;i<=data.length-1;i++){
             if(data[i].idGenero == generoSeleccionado || generoSeleccionado == "Todo"){
               if(data[i].titulo.toLowerCase().includes(titulo.toLowerCase())){
-                crearContenido(data[i]);
+                crearContenido(data[i],'corto');
               }
             }
           }
@@ -245,7 +245,7 @@ function fetchContenido(titulo) {
       for(let i=0;i<=data.length-1;i++){
         if(data[i].idGenero == generoSeleccionado || generoSeleccionado == "Todo"){
           if(data[i].titulo.toLowerCase().includes(titulo.toLowerCase())){
-            crearContenido(data[i]);
+            crearContenido(data[i],'capitulo');
           }
         }
       }
@@ -261,5 +261,5 @@ function fetchContenido(titulo) {
     contentContainer.innerHTML = '<div id="spinner" class="spinner-border text-light" role="status"><span class="visually-hidden">Cargando...</span></div>'
   }
 
-  fetchContenidos("")
+  filtrarContenido("")
   generarGeneros()

@@ -39,16 +39,24 @@
             <img id="iconoContenido" src="https://musicart.xboxlive.com/7/5dbd5100-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080">
         </div>
         <form id="contentForm" onsubmit="modificarContenido(); return false;">
+          <input type="hidden" id="idContenido" name="idContenido">
+          <input type="hidden" id="tipoContenido" name="tipoContenido">
           <input type="text" id="contentTitle" name="contentTitle" placeholder="Título" required>
           <input type="text" id="contentDescription" name="contentDescription" placeholder="Descripción" required>
           <input type="text" id="contentDirector" name="contentDirector" placeholder="Director" required>
+          <input type="text" id="contentDuracion" name="contentDuracion" placeholder="Duracion en Minutos" required>
+          <input type="hidden" id="contentPunt" name="contentPunt" required>
           <input type="text" id="contentGenre" name="contentGenre" placeholder="Género" required>
           <input type="text" id="contentTarifa" name="contentTarifa" placeholder="Tarifa" required>
           <input type="text" id="contentActores" name="contentActores" placeholder="Actores" required>
           <input type="url" id="contentImagen" name="contentImagen" placeholder="Url Imagen" required>
           <input type="date" id="contentEstreno" name="contentEstreno" placeholder="Fecha de Estreno" required>
+          <input type="hidden" id="peliculaCaducidad" name="peliculaCaducidad" placeholder="Disponible Hasta" required>
+          <input type="hidden" id="capituloTemporada" name="capituloTemporada" placeholder="Temporada del Capitulo" required>
+          <input type="hidden" id="capituloSerie" name="capituloSerie" placeholder="Serie del Capitulo" required>
           <button type="submit">Actualizar Contenido</button>
         </form>
+        <h1 id="mensaje_resultado"></h1>
   </div>
 <footer>
   <p>1ºDAW</p>

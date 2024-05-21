@@ -76,7 +76,7 @@ function modificarCliente(){
         }
     })
     .catch(error => {
-        mensajeResultado.innerHTML = "Ha ocurrido un error alactualizar el usuario";
+        mensajeResultado.innerHTML = "Ha ocurrido un error al actualizar el usuario";
         console.error(error);
     })
     
