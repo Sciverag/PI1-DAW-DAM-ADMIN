@@ -273,7 +273,7 @@ function modificarSerie(){
     fetch(ipServer+"/contenido/serie/update", {
         method: 'PUT',
         mode: 'cors',
-        body: JSON.stringify(Capitulo),
+        body: JSON.stringify(Serie),
         headers: {
             "Content-Type": "application/json",
         },
