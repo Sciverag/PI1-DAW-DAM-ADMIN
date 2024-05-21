@@ -40,26 +40,25 @@ function informacionUsuario(usuario){
     clientDomicilio.value = usuario.domicilio;
     clientFechaNac.value = usuario.fechaNacimiento;
     clientNumTarjeta.value = usuario.num_tarjeta;
-    console.log(usuario.url_imagen);
     clientIcon.value = usuario.url_imagen;
     clientImageView.src = usuario.url_imagen;
     clientCodPostal.value = usuario.cp;
 }
 
 function modificarCliente(){
-    const Usuario = new FormData();
-    Usuario.append('nombreUsuario',nombreUser.value);
-    Usuario.append('nombre',clientName.value);
-    Usuario.append('apellido',clientLastName.value);
-    Usuario.append('email',clientEmail.value);
-    Usuario.append('contrasenya',clientPassword.value);
-    Usuario.append('domicilio',clientDomicilio.value);
-    Usuario.append('fechaNacimiento',clientFechaNac.value);
-    Usuario.append('num_tarjeta',clientNumTarjeta.value);
-    Usuario.append('url_imagen',clientIcon.value);
-    Usuario.append('cp',clientCodPostal.value);
-
-    console.log(Usuario.json);
+    const Usuario = {
+        'nombreUsuario': nombreUser.value,
+        'nombre': clientName.value,
+        'apellido': clientLastName.value,
+        'email': clientEmail.value,
+        'contrasenya': clientPassword.value,
+        'domicilio': clientDomicilio.value,
+        'fechaNacimiento': clientFechaNac.value,
+        'num_tarjeta': clientNumTarjeta.value,
+        'url_imagen': clientIcon.value,
+        'cp': clientCodPostal.value
+    }
+    
 
     fetch(ipServer+"/usuario/update", {
         

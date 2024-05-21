@@ -58,7 +58,8 @@ function addClient() {
     },
   })
     .then(response => response.json())
-    .then(json => console.log(json));
+    .then(json => console.log(json))
+    .catch(error => console.error(error));
   console.log('Añadiendo cliente: ',usuario, nombre, apellido , contrasenya , email);
 }
 document.getElementById('loginForm').addEventListener('submit', function(event) {

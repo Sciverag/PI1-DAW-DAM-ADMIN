@@ -55,6 +55,124 @@ footer p{
   display: none;
 }
 
+#responsive {
+  display: none;
+}
+
+#menu_responsive {
+
+  position: absolute;
+  display: none;
+  justify-content: flex-end;
+  align-content: flex-end;
+  color: #273c75;
+  top: 0;
+
+}
+
+
+#menu_responsive .itemder {
+
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: 6%;
+  font-size: large;
+  align-self: flex-start;
+}
+
+
+#menu_responsive nav {
+
+  width: 100%;
+  font-weight: bold;
+  height: auto;
+
+}
+
+#menu_responsive nav ul {
+
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+#menu_responsive nav li a{
+
+  color: #273c75; 
+  text-decoration: none;
+  display: block;
+  padding: 1em 1.5em;
+  opacity: 100%;
+}
+
+#menu_responsive nav li {
+
+  color: white; 
+  text-decoration: none;
+  display: block;
+  padding: 0;
+  opacity: 100%;
+
+}
+
+
+
+#menu_responsive .submenu li a:hover {
+  animation: fondomenuresp 300ms forwards;
+
+}
+
+#menu_responsive nav li a:hover {
+  animation: fondomenu 300ms forwards;
+
+}
+
+#menu_responsive .submenu {
+display: none;
+position: absolute;
+  background: #f8f8f8;
+  border: solid 3px #cccccc;
+  opacity: 70%;
+z-index: 1001;
+height: 88vh;
+
+}
+
+
+#menu_responsive .submenu li {
+padding: none;
+text-align: center;
+display: block;
+}
+
+
+
+#menu_responsive .itemder:hover .submenu {
+display: block;
+animation: ressubmenu 600ms forwards;
+}
+
+@keyframes ressubmenu{
+
+  0%{
+      opacity: 0%;
+      border-radius: 10%;
+      width: 0vw;
+  }
+  50%{
+      opacity: 40%;
+      width: 43vw;
+  }
+  100%{
+      opacity: 75%;
+      border-radius: 0%;
+      width: 57%;
+  }
+
+}
 /* Estilo del contenedor principal para login, admin y contenido/usuarios */
 .login-container, .admin-container {
   max-width: 960px;
@@ -362,10 +480,7 @@ th, td {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 50px;
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    margin-top: 20px;
+    margin:auto;
   }
 
   .user-container {
@@ -373,10 +488,7 @@ th, td {
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    margin-top: 20px;
+    margin:auto;
   }
 
   .name {
@@ -400,6 +512,55 @@ th, td {
     font-size: 10px;
     margin: 0%;
   }
+
+  #contenido-usuario{
+    display: none;
+    position: absolute;
+  }
+
+  #menu{
+    display: none;
+    position: absolute;
+  }
+
+  #menu_responsive {
+
+    position: -webkit-sticky;
+    position: sticky;
+    display: flex;
+    z-index: 1000;
+}
+
+header {
+  min-width: 100vw;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 0%;
+}
+
+#contenido-logo #normal{
+ display: none;
+}
+
+#contenido-logo h1{
+  margin-right: 5%;
+  font-size: 180%;
+}
+
+#contenido-logo{
+  margin-left: 10%;
+}
+
+#responsive {
+  display: block;
+}
+
+footer {
+  min-width: 100vw;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-bottom: 0;
+}
 
 }
 @media (max-width: 768px){
