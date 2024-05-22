@@ -156,7 +156,7 @@ function modificarContenido(){
 function modificarPelicula(){
     const Pelicula = {
         "id": idContenido,
-        "titulo": tipoContenido.value,
+        "titulo": tituloContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
         "puntMedia": puntuacionContenido.value,
@@ -192,7 +192,7 @@ function modificarPelicula(){
 function modificarCorto(){
     const Corto = {
         "id": idContenido,
-        "titulo": tipoContenido.value,
+        "titulo": tituloContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
         "puntMedia": puntuacionContenido.value,
@@ -227,7 +227,7 @@ function modificarCorto(){
 function modificarCapitulo(){
     const Capitulo = {
         "id": idContenido,
-        "titulo": tipoContenido.value,
+        "titulo": tituloContenido.value,
         "descripcion": desContenido.value,
         "actores": actoresContenido.value,
         "puntMedia": puntuacionContenido.value,
@@ -270,7 +270,7 @@ function modificarSerie(){
         "url_image": imagenContenido.value
     }
 
-    fetch(ipServer+"/contenido/serie/update", {
+    fetch(ipServer+"/serie/update", {
         method: 'PUT',
         mode: 'cors',
         body: JSON.stringify(Serie),

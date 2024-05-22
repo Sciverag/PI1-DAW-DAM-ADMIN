@@ -235,7 +235,7 @@ function addClient() {
     'email': email.value
   } 
   
-  fetch(ipServer + "/usuario/",{
+  fetch(ipServer + "/usuario/add",{
     method: 'POST',
     mode: 'cors',
     body: JSON.stringify(Usuario),

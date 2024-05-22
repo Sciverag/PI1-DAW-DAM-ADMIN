@@ -145,13 +145,37 @@ function fetchContenido(titulo) {
   }
 
   function eliminarContenido(idContenido,tipo){
-    fetch(ipServer+"/contenido/delete/"+idContenido ,{
-      method: 'DELETE',
-      mode: 'cors'
-    }).catch(error => {
-      spinner.style.display = "none";
-      console.error(error);
-    })
+    console.log(tipo);
+    if(tipo=="pelicula"){
+      fetch(ipServer+"/contenido/pelicula/"+idContenido)
+      .then((res) => res.json())
+      .then((data) => {
+          borrarContenido(data);
+      })
+      .catch(error => console.error(error))
+    }else if(tipo == "corto"){
+      fetch(ipServer+"/contenido/corto/"+idContenido)
+      .then((res) => res.json())
+      .then((data) => {
+          borrarContenido(data);
+      })
+      .catch(error => console.error(error))
+    }else if(tipo == "capitulo"){
+      fetch(ipServer+"/contenido/capitulo/"+idContenido)
+      .then((res) => res.json())
+      .then((data) => {
+          borrarContenido(data);
+      })
+      .catch(error => console.error(error))
+    }else if(tipo=="serie"){
+      fetch(ipServer+"/serie/"+idContenido)
+      .then((res) => res.json())
+      .then((data) => {
+          borrarSerie(data);
+      })
+      .catch(error => console.error(error))
+    }
+   
     actualizarListado();
     filtrarContenido();
   }
@@ -163,6 +187,35 @@ function fetchContenido(titulo) {
       for(let i=0;i<data.length;i++){
         anyadirGenero(data[i]);
       }
+    })
+  }
+
+  function borrarContenido(contenido){
+    
+    fetch(ipServer+"/contenido/delete/&id="+contenido.id+"&tipo="+contenido.tipo ,{
+      method: 'DELETE',
+      mode: 'cors',
+      body: contenido,
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).catch(error => {
+      spinner.style.display = "none";
+      console.error(error);
+    })
+  }
+
+  function borrarSerie(serie){
+    fetch(ipServer+"/serie/delete/"+serie.id,{
+      method: 'DELETE',
+      mode: 'cors',
+      body: serie,
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).catch(error => {
+      spinner.style.display = "none";
+      console.error(error);
     })
   }
 
