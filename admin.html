@@ -44,6 +44,12 @@
       <a href="formContenido.html" class="button">Modificar Contenido</a>
       <a href="formContenido.html" class="button">Eliminar Contenido</a>
     </div>
+    <div class="buttonCrud" style="display: none;">
+      <button onclick="showAddContentForm()">Añadir Pelicula</button>
+      <button onclick="showAddContentForm()">Añadir Corto</button>
+      <button onclick="showAddContentForm()">Añadir Capitulo</button>
+      <button onclick="showAddContentForm()">Añadir Serie</button>
+    </div>
 
     <form id="contentForm" style="display:none;" onsubmit="addContent(); return false;">
       <input type="text" id="contentTitle" name="contentTitle" placeholder="Título" required>
@@ -72,6 +78,7 @@
     </form>
 
   </div>
+  <h1 id="mensaje_resultado"></h1>
 </div>
 <script src="js/app.js"></script>
 <footer>

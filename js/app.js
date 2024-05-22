@@ -1,5 +1,7 @@
-const ipServer = "http://172.30.198.206:8080";
-//const ipServer = "http://127.0.0.1:8080"
+//const ipServer = "http://172.30.198.206:8080";
+const ipServer = "http://127.0.0.1:8080";
+const mensajeResultado = document.querySelector("#mensaje_resultado");
+
 
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;
@@ -62,9 +64,13 @@ function addClient() {
     },
   })
     .then(response => response.json())
-    .then(json => console.log(json))
-    .catch(error => console.error(error));
-  console.log('Añadiendo cliente: ',usuario, nombre, apellido , contrasenya , email);
+    .then(json => {
+      mensajeResultado.innerHTML = "Usuario añadido con exito!";
+    })
+    .catch(error => {
+      console.error(error);
+      mensajeResultado.innerHTML = "Se a producido un error al añadir el Usuario";
+    });
 }
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
