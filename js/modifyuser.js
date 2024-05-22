@@ -58,7 +58,7 @@ function modificarCliente(){
         'num_tarjeta': clientNumTarjeta.value,
         'url_imagen': clientIcon.value,
         'cp': clientCodPostal.value
-    }
+    };
     
 
     fetch(ipServer+"/usuario/update", {

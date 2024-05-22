@@ -153,7 +153,7 @@ function fetchContenido(titulo) {
       console.error(error);
     })
     actualizarListado();
-    fetchContenidos("");
+    filtrarContenido();
   }
 
   function generarGeneros(){
