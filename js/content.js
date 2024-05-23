@@ -6,6 +6,13 @@ const ipServer = "http://172.30.198.206:8080";
 //const ipServer = "http://127.0.0.1:8080";
 const spinner = document.querySelector("#spinner");
 
+//Cierra la sesion y devuelve al login
+function cerrarSesion(){
+  localStorage.removeItem('userName');
+  location.href = 'index.html';
+}
+
+//Obtiene todo el contenido para añadirlo al listado
 function fetchContenido(titulo) {
 
   const generoSeleccionado = selectGenero.value;
@@ -30,6 +37,7 @@ function fetchContenido(titulo) {
     
   }
 
+  //Obtiene todas las Series para añadirlas al listado
   function fetchSeries(titulo){
 
     const generoSeleccionado = selectGenero.value;
@@ -54,6 +62,7 @@ function fetchContenido(titulo) {
       
   }
   
+  //Llamada a obtener Contenido y Series, ademas, muestra que la pagina esta cargando
   function fetchContenidos(titulo) {
     
     spinner.style.display = "block";
@@ -62,6 +71,7 @@ function fetchContenido(titulo) {
     
   }
 
+  //Crea una carta de Contenido y la añade al listado
   function crearContenido(contenido,tipo) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
@@ -102,6 +112,7 @@ function fetchContenido(titulo) {
 
   }
 
+  //Crea la parte trasera de la carta Contenido
   function botonesContenido(contenido,tipo) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("buttons-container");
@@ -140,10 +151,12 @@ function fetchContenido(titulo) {
     return buttonsContainer;
   }
 
+  //Funcion del Boton Modificar de la Carta Contenido, dirige a la pagina de modificacion
   function verContenido(idContenido,tipoContenido){
     window.location.href = 'modificarContenido.html?idContenido='+encodeURIComponent(idContenido+'z'+tipoContenido);
   }
 
+  //Funcion del Boton Eliminar de la Carta Contenido, dependiendo el tipo de contenido realiza una llamada a la API u otra
   function eliminarContenido(idContenido,tipo){
     console.log(tipo);
     if(tipo=="pelicula"){
@@ -180,6 +193,7 @@ function fetchContenido(titulo) {
     filtrarContenido();
   }
 
+  //Añade generos a la seleccion de los filtros
   function generarGeneros(){
     fetch(ipServer+"/genero/")
     .then((res) => res.json())
@@ -190,6 +204,7 @@ function fetchContenido(titulo) {
     })
   }
 
+  //Borra el contenido de la base de datos
   function borrarContenido(contenido){
     
     fetch(ipServer+"/contenido/delete/&id="+contenido.id+"&tipo="+contenido.tipo ,{
@@ -205,6 +220,7 @@ function fetchContenido(titulo) {
     })
   }
 
+  //Borra la serie de la base de datos
   function borrarSerie(serie){
     fetch(ipServer+"/serie/delete/"+serie.id,{
       method: 'DELETE',
@@ -219,10 +235,12 @@ function fetchContenido(titulo) {
     })
   }
 
+  //Añade el genero al select del formulario de filtrado
   function anyadirGenero(genero){
     selectGenero.innerHTML += '<option value='+genero.id+'>'+genero.tipo+'</option>';
   }
 
+  //Dependiendo los filtros seleccionados muestra un listado diferente
   function filtrarContenido(){
     const tituloSeleccionado = tituloContenido.value;
     const tipo = filtroTipo.value; 
@@ -245,6 +263,7 @@ function fetchContenido(titulo) {
     }
   }
 
+  //Obtiene todas las peliculas filtradas y las coloca en el listado
   function sacarPeliculas(titulo){
     const generoSeleccionado = selectGenero.value;
     
@@ -268,6 +287,7 @@ function fetchContenido(titulo) {
       
   }
 
+  //Obtiene todos los cortos filtrados y los coloca en el listado
   function sacarCortos(titulo){
     const generoSeleccionado = selectGenero.value;
    
@@ -289,6 +309,7 @@ function fetchContenido(titulo) {
         })
   }
 
+  //Obtiene todos los capitulos filtrados y los coloca en el listado
   function sacarCapitulos(titulo){
     const generoSeleccionado = selectGenero.value;
 
@@ -310,9 +331,27 @@ function fetchContenido(titulo) {
     })
   }
 
+  //Reinicia el listado de contenido
   function actualizarListado(){
     contentContainer.innerHTML = '<div id="spinner" class="spinner-border text-light" role="status"><span class="visually-hidden">Cargando...</span></div>'
   }
+
+  //Obtiene la foto del usuario logeado y la coloca en el menu
+  function obtenerFotoUsuario(){
+    const nombreUsuario = localStorage.getItem("userName");
+    fetch(ipServer+"/usuario/"+nombreUsuario)
+        .then((res) => res.json())
+        .then((data) => {
+        
+          document.getElementById("iconoUsuario").src = data.url_imagen;
+        
+        })
+        .catch(error => {
+          console.error(error);
+        })
+  }
+  
+  obtenerFotoUsuario();
 
   filtrarContenido("")
   generarGeneros()

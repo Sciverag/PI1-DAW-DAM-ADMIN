@@ -14,6 +14,13 @@ const capituloTemporada = document.querySelector("#capituloTemporada");
 const capituloSerie = document.querySelector("#capituloSerie");
 const puntuacionContenido = document.querySelector("#contentPunt");
 
+
+//Cierra sesion y vuelve al login
+function cerrarSesion(){
+    localStorage.removeItem('userName');
+    location.href = 'index.html';
+  }
+
 const ipServer = "http://172.30.198.206:8080";
 //const ipServer = "http://127.0.0.1:8080";
 const totalContenido = obtenerParametroID('idContenido');
@@ -21,12 +28,14 @@ const idContenido = totalContenido.split('z')[0];
 const tipoContenido = totalContenido.split('z')[1];
 colocarInformacion();
 
+//Devuelve la id de Contenido almacenada en la URL
 function obtenerParametroID(idContenido){
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(idContenido);
 }
 
 
+//Dependiendo el tipo de contenido colocara una informacion o otra
 function colocarInformacion(){
     console.log(tipoContenido);
     console.log(idContenido);
@@ -41,6 +50,7 @@ function colocarInformacion(){
     }
 }
 
+//Obtiene la informacion de la pelicula con un get por ID para colocarla en el formulario
 function colocarPelicula(){
     fetch(ipServer+"/contenido/pelicula/"+idContenido)
     .then((res) => res.json())
@@ -50,6 +60,7 @@ function colocarPelicula(){
     .catch(error => console.error(error))
 }
 
+//Coloca la informacion de la pelicula en el formulario
 function informacionPelicula(pelicula){
     contentImageView.src = pelicula.url_image;
     puntuacionContenido.value = pelicula.puntMedia;
@@ -66,6 +77,7 @@ function informacionPelicula(pelicula){
     peliculaDispo.value = pelicula.disponible_hasta; 
 }
 
+//Obtiene la informacion del corto con un get por ID para colocarla en el formulario
 function colocarCorto(){
     fetch(ipServer+"/contenido/corto/"+idContenido)
     .then((res) => res.json())
@@ -75,6 +87,7 @@ function colocarCorto(){
     .catch(error => console.error(error))
 }
 
+//Coloca la informacion del corto en el formulario
 function informacionCorto(corto){
     contentImageView.src = corto.url_image;
     tituloContenido.value = corto.titulo; 
@@ -89,6 +102,7 @@ function informacionCorto(corto){
     estrenoContenido.value = corto.fechaEstreno;
 }
 
+//Obtiene la informacion del capitulo con un get por ID para colocarla en el formulario
 function colocarCapitulo(){
     fetch(ipServer+"/contenido/capitulo/"+idContenido)
     .then((res) => res.json())
@@ -98,6 +112,7 @@ function colocarCapitulo(){
     .catch(error => console.error(error))
 }
 
+//Coloca la informacion del capitulo en el formulario
 function informacionCapitulo(capitulo){
     contentImageView.src = capitulo.url_image;
     tituloContenido.value = capitulo.titulo; 
@@ -116,6 +131,7 @@ function informacionCapitulo(capitulo){
     capituloSerie.value = capitulo.idSerie;
 }
 
+//Obtiene la informacion de la serie con un get por ID para colocarla en el formulario
 function colocarSerie(){
     fetch(ipServer+"/serie/"+idContenido)
     .then((res) => res.json())
@@ -125,6 +141,7 @@ function colocarSerie(){
     .catch(error => console.error(error))
 }
 
+//Coloca la informacion de la serie en el formulario
 function informacionSerie(serie){
     contentImageView.src = serie.url_image;
     tituloContenido.value = serie.titulo; 
@@ -140,7 +157,7 @@ function informacionSerie(serie){
     peliculaDispo.value = serie.disponible_hasta;
 }
 
-
+//Dependiendo del tipo de contenido se enviaran unos datos a modificar o otros
 function modificarContenido(){
    if(tipoContenido == 'pelicula'){
     modificarPelicula();
@@ -153,6 +170,7 @@ function modificarContenido(){
    }
 }
 
+//Obtiene la informacion del formulario y con un put actualiza la pelicula
 function modificarPelicula(){
     const Pelicula = {
         "id": idContenido,
@@ -189,6 +207,7 @@ function modificarPelicula(){
     })
 }
 
+//Obtiene la informacion del formulario y con un put actualiza el corto
 function modificarCorto(){
     const Corto = {
         "id": idContenido,
@@ -224,6 +243,7 @@ function modificarCorto(){
     })
 }
 
+//Obtiene la informacion del formulario y con un put actualiza el capitulo
 function modificarCapitulo(){
     const Capitulo = {
         "id": idContenido,
@@ -288,3 +308,28 @@ function modificarSerie(){
         console.error(error);
     })
 }
+
+//Obtiene la foto del usuario que a realizado el login y la coloca en el menu
+function obtenerFotoUsuario(){
+    console.log("sacando foto..")
+    if(!localStorage.hasOwnProperty("userName")){
+        console.log("no existe sesion");
+        window.location.href = "index.html";
+    }else{
+        console.log("existe sesion");
+    const nombreUsuario = localStorage.getItem("userName");
+    fetch(ipServer+"/usuario/"+nombreUsuario)
+        .then((res) => res.json())
+        .then((data) => {
+        
+          document.getElementById("iconoUsuario").src = data.url_imagen;
+        
+        })
+        .catch(error => {
+          console.error(error);
+        })
+    }
+    
+  }
+  
+  obtenerFotoUsuario();

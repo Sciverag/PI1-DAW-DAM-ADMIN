@@ -2,7 +2,13 @@ const ipServer = "http://172.30.198.206:8080";
 //const ipServer = "http://127.0.0.1:8080";
 const mensajeResultado = document.querySelector("#mensaje_resultado");
 
+//Cierra la sesion y devuelve al login
+function cerrarSesion(){
+  localStorage.removeItem('userName');
+  location.href = 'index.html';
+}
 
+//Muestra la opcion de Contenido u Usuario depende cual sea pulsado
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;
 
@@ -18,14 +24,16 @@ function openTab(evt, tabName) {
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
-
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.tablink').click();
 });
+
+//Muestra las opciones de añadir Contenido
 function showAddContentForm() {
   document.getElementById('selectContentType').style.display = 'flex';
 }
 
+//Muestra el formulario para añadir una pelicula y oculta el resto
 function showAddPeliculaForm(){
   document.getElementById('peliculaForm').style.display = 'block';
   document.getElementById('cortoForm').style.display = 'none';
@@ -33,6 +41,7 @@ function showAddPeliculaForm(){
   document.getElementById('serieForm').style.display = 'none';
 }
 
+//Muestra el formulario para añadir un corto y oculta el resto
 function showAddCortoForm(){
   document.getElementById('peliculaForm').style.display = 'none';
   document.getElementById('cortoForm').style.display = 'block';
@@ -40,6 +49,7 @@ function showAddCortoForm(){
   document.getElementById('serieForm').style.display = 'none';
 }
 
+//Muestra el formulario para añadir un capitulo y oculta el resto
 function showAddCapituloForm(){
   document.getElementById('peliculaForm').style.display = 'none';
   document.getElementById('cortoForm').style.display = 'none';
@@ -47,6 +57,7 @@ function showAddCapituloForm(){
   document.getElementById('serieForm').style.display = 'none';
 }
 
+//Muestra el formulario para añadir una serie y oculta el resto
 function showAddSerieForm(){
   document.getElementById('peliculaForm').style.display = 'none';
   document.getElementById('cortoForm').style.display = 'none';
@@ -54,6 +65,7 @@ function showAddSerieForm(){
   document.getElementById('serieForm').style.display = 'block';
 }
 
+//Crea un objeto Json Pelicula y lo añade a la base de datos
 function addPelicula(){
   const tituloPelicula = document.querySelector("#peliculaTitle");
   const descripcionPelicula = document.querySelector("#peliculaDescription");
@@ -97,6 +109,7 @@ function addPelicula(){
 
 }
 
+//Crea un objeto Json Corto y lo añade a la base de datos
 function addCorto(){
   const tituloCorto = document.querySelector("#cortoTitle");
   const descripcionCorto = document.querySelector("#cortoDescription");
@@ -138,6 +151,7 @@ function addCorto(){
 
 }
 
+//Crea un objeto Json capitulo y lo añade a la base de datos
 function addCapitulo(){
   const tituloCapitulo = document.querySelector("#capituloTitle");
   const descripcionCapitulo = document.querySelector("#capituloDescription");
@@ -183,6 +197,7 @@ function addCapitulo(){
 
 }
 
+//Crea un objeto Json serie y lo añade a la base de datos
 function addSerie(){
   const tituloSerie = document.querySelector("#serieTitle");
   const descripcionSerie = document.querySelector("#serieDescription");
@@ -216,10 +231,12 @@ function addSerie(){
 
 }
 
+//Muestra el formulario para añadir un cliente
 function showAddClientForm() {
   document.getElementById('clientForm').style.display = 'block';
 }
 
+//Crea un objeto Json Cliente y lo añade a la base de datos
 function addClient() {
   const nombre = document.getElementById('clientName');
   const contrasenya = document.getElementById('clientPassword');
@@ -253,27 +270,27 @@ function addClient() {
     });
 }
 
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const errorMessage = document.getElementById('error-message');
-
-  const validUsers = [
-    { username: 'root', password: 'root' },
-    { username: 'pepanav', password: '1234' },
-    { username: 'lunagarc', password: '1234' }
-  ];
-
-  const isValidUser = validUsers.some(user => user.username === username && user.password === password);
-
-  if (isValidUser) {
-    window.location.href = 'admin.html';
-  } else {
-    errorMessage.style.display = 'block';
+//Obtiene la foto del usuario logeado y la coloca en el menu
+function obtenerFotoUsuario(){
+  console.log("sacando foto..")
+  if(!localStorage.hasOwnProperty("userName")){
+      console.log("no existe sesion");
+      window.location.href = "index.html";
+  }else{
+      console.log("existe sesion");
+  const nombreUsuario = localStorage.getItem("userName");
+  fetch(ipServer+"/usuario/"+nombreUsuario)
+      .then((res) => res.json())
+      .then((data) => {
+      
+        document.getElementById("iconoUsuario").src = data.url_imagen;
+      
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
-});
+  
+}
 
-
-
+obtenerFotoUsuario();

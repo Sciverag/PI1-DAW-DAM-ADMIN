@@ -4,6 +4,14 @@ const ipServer = "http://172.30.198.206:8080";
 //const ipServer = "http://127.0.0.1:8080"
 const spinner = document.querySelector("#spinner");
 
+//Cierra la sesion y devuelve al login
+function cerrarSesion(){
+  localStorage.removeItem('userName');
+  location.href = 'index.html';
+}
+
+
+//Obtiene todos los usuarios para crearlos en el listado
 function fetchUsuario() {
  
     fetch(ipServer+"/usuario/")
@@ -24,6 +32,7 @@ function fetchUsuario() {
     
   }
   
+  //Llamada a obtener los usuarios y indica que la pagina esta cargando
   function fetchUsuarios() {
     
     spinner.style.display = "block";
@@ -31,6 +40,7 @@ function fetchUsuario() {
     
   }
 
+  //Crea una carta de Usuario en el listado
   function crearUsuario(usuario) {
     const flipCard = document.createElement("div");
     flipCard.classList.add("flip-card");
@@ -73,6 +83,7 @@ function fetchUsuario() {
 
   }
 
+  //Crea la parte trasera de la carta de Usuario
   function botonesUsuario(usuario) {
     const buttonsContainer = document.createElement("div");
     buttonsContainer.classList.add("buttons-container");
@@ -111,10 +122,12 @@ function fetchUsuario() {
     return buttonsContainer;
   }
 
+  //Metodo del boton de Modificar de la carta de Usuario que envia a la pagina de modificacion
   function verUsuario(nombreUser){
     window.location.href = 'modificarCliente.html?nombreUser='+encodeURIComponent(nombreUser);
   }
 
+  //Metodo del boton de Eliminar de la carta de Usuario que elimina a este de la base de datos
   function eliminarUsuario(nombreUser){
     fetch(ipServer+"/usuario/delete/"+nombreUser ,{
       method: 'DELETE',
@@ -149,8 +162,26 @@ function fetchUsuario() {
       })
   }
 
+  //Reinicia el listado de Usuarios
   function actualizarListado(){
     userContainer.innerHTML = '<div id="spinner" class="spinner-border text-light" role="status"><span class="visually-hidden">Cargando...</span></div>'
   }
+
+  //Obtiene la foto del usuario logeado y la coloca en el menu
+  function obtenerFotoUsuario(){
+    const nombreUsuario = localStorage.getItem("userName");
+    fetch(ipServer+"/usuario/"+nombreUsuario)
+        .then((res) => res.json())
+        .then((data) => {
+        
+          document.getElementById("iconoUsuario").src = data.url_imagen;
+        
+        })
+        .catch(error => {
+          console.error(error);
+        })
+  }
+  
+  obtenerFotoUsuario();
 
   fetchUsuarios()
